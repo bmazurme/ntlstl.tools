@@ -1,6 +1,6 @@
 import subscriptionsApi from '../index';
 
-type Subscriptions = {
+type SubscriptionStatus = {
   isActive: boolean;
   id: number;
 };
@@ -11,7 +11,7 @@ const subscriptionsApiEndpoints = subscriptionsApi
   })
   .injectEndpoints({
     endpoints: (builder) => ({
-      getStatus: builder.mutation<Subscriptions, void>({
+      getStatus: builder.mutation<SubscriptionStatus, void>({
         query: () => ({
           url: 'subscriptions/status',
           method: 'GET',

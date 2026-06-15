@@ -472,3 +472,34 @@
     padding: 16px 12px;
   }
 }
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .printable,
+  .printable * {
+    visibility: visible;
+  }
+
+  .printable {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+  }
+
+  .printable *,
+  .printable .katex,
+  .printable .katex * {
+    color: #000 !important;
+    background: transparent !important;
+    border-color: #000 !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+}
