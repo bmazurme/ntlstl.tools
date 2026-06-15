@@ -1,6 +1,6 @@
 import typesApi from '../index';
 
-export type Type = {
+export type ModuleTypeOption = {
   id: number;
   name: string;
   description: string;
@@ -13,7 +13,7 @@ const typesApiEndpoints = typesApi
   })
   .injectEndpoints({
     endpoints: (builder) => ({
-      getTypes: builder.mutation<Type[], void>({
+      getTypes: builder.mutation<ModuleTypeOption[], void>({
         query: () => ({
           url: 'types',
           method: 'GET',

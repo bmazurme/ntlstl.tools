@@ -1,10 +1,10 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
-import type { RootState, Type } from '..';
+import type { RootState, ModuleTypeOption } from '..';
 
 type TypesState = {
-  types: Type[];
+  types: ModuleTypeOption[];
 };
 
 export const initialStateTypes: TypesState = {
