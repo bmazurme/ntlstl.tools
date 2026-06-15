@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import TemplateWrapper from '../../components/template-wrapper/template-wrapper';
+import ExportPdfButton from '../../components/export-pdf-button';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import useAppToaster from '../../hooks/use-app-toaster';
@@ -37,10 +38,15 @@ export default function HeatConsumptionLayout() {
   return (
     <TemplateWrapper isLoading={!item?.heatConsumption}>
       {() => (
-        <HeatConsumptionTemplate
-          data={item!.heatConsumption!}
-          title={item!.name}
-        />
+        <>
+          <ExportPdfButton />
+          <div className="printable">
+            <HeatConsumptionTemplate
+              data={item!.heatConsumption!}
+              title={item!.name}
+            />
+          </div>
+        </>
       )}
     </TemplateWrapper>
   );

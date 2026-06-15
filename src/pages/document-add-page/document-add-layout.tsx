@@ -17,7 +17,11 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import fields from './document-add-page.fields';
 import { TEXT_INPUT_PROPS } from '../../config';
 
+import style from './document-add-page.module.css';
+
 type FormPayload = Omit<DocumentType, 'id'>;
+
+const FORM_ID = 'document-add-form';
 
 export default function DocumentAddLayout() {
   const dispatch = useAppDispatch();
@@ -59,52 +63,56 @@ export default function DocumentAddLayout() {
   }, [data, dispatch]);
 
   return (
-    <form
-      className="content"
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <BackButton />
+    <div className="content">
+      <div className={style.header}>
+        <BackButton />
+        <Buttons formId={FORM_ID} size="m" />
+      </div>
       <Text variant="header-1">Добавить документ</Text>
 
-      {fields.map((input) => (
-        <Controller
-          key={input.name}
-          name={input.name as keyof FormPayload}
-          rules={{
-            pattern: input.pattern,
-            required: input.required,
-          }}
-          control={control}
-          render={({ field, fieldState }) => (
-            field.name !== 'type'
-              ? (
-                <TextInput
-                  {...field}
-                  {...input}
-                  {...TEXT_INPUT_PROPS}
-                  value={typeof field.value === 'string' ? field.value : ''}
-                  error={fieldState.error?.message}
-                />
-              )
-              : (
-                <Select
-                  label="Тип документа"
-                  size="l"
-                  width="max"
-                  {...register}
-                  onUpdate={field.onChange}
-                  errorMessage={fieldState.error?.message}
-                  validationState={errors?.type ? 'invalid' : undefined}
-                  placeholder={isLoading ? 'Загрузка...' : 'Выберите вариант'}
-                  disabled={isLoading}
-                  options={typeOptions}
-                />
-              )
-          )}
-        />
-      ))}
-
-      <Buttons />
-    </form>
+      <form
+        id={FORM_ID}
+        className="form"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        {fields.map((input) => (
+          <Controller
+            key={input.name}
+            name={input.name as keyof FormPayload}
+            rules={{
+              pattern: input.pattern,
+              required: input.required,
+            }}
+            control={control}
+            render={({ field, fieldState }) => (
+              field.name !== 'type'
+                ? (
+                  <TextInput
+                    {...field}
+                    {...input}
+                    {...TEXT_INPUT_PROPS}
+                    value={typeof field.value === 'string' ? field.value : ''}
+                    error={fieldState.error?.message}
+                  />
+                )
+                : (
+                  <Select
+                    label="Тип документа"
+                    size="l"
+                    width="max"
+                    {...register}
+                    onUpdate={field.onChange}
+                    errorMessage={fieldState.error?.message}
+                    validationState={errors?.type ? 'invalid' : undefined}
+                    placeholder={isLoading ? 'Загрузка...' : 'Выберите вариант'}
+                    disabled={isLoading}
+                    options={typeOptions}
+                  />
+                )
+            )}
+          />
+        ))}
+      </form>
+    </div>
   );
 }

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import TemplateWrapper from '../../components/template-wrapper/template-wrapper';
+import ExportPdfButton from '../../components/export-pdf-button';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import useAppToaster from '../../hooks/use-app-toaster';
@@ -37,10 +38,15 @@ export default function CollectorCalculationTemplateLayout() {
   return (
     <TemplateWrapper isLoading={!item?.collectorCalculation}>
       {() => (
-        <CollectorCalculationTemplate
-          data={item!.collectorCalculation!}
-          title={item!.name}
-        />
+        <>
+          <ExportPdfButton />
+          <div className="printable">
+            <CollectorCalculationTemplate
+              data={item!.collectorCalculation!}
+              title={item!.name}
+            />
+          </div>
+        </>
       )}
     </TemplateWrapper>
   );

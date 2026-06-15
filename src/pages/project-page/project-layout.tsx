@@ -6,7 +6,6 @@ export default function ProjectPage() {
   return (
     <div className="content">
       <BackButton />
-
       <div className="project_main">
         <Outlet />
       </div>
